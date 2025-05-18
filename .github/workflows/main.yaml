@@ -24,3 +24,12 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME  }}/form-builder-api:latest
+
+  render-deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Trigger Render deployment
+        run: |
+          curl -X GET ${{ secrets.RENDER_DEPLOY_URL }}
